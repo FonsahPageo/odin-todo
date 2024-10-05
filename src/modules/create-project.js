@@ -28,5 +28,5 @@ export const CreateProjectForm = () => {
 const addProjectToList = (title) => {
     const newProject = document.createElement("li");
     newProject.innerHTML = `<a href="#">${title}</a> <i class="fa-solid fa-delete-left"</i>`;
-    sidebar.appendChild(newProject);
+    projectListContainer.appendChild(newProject);
 };

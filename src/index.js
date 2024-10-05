@@ -29,9 +29,8 @@ userDetails.appendChild(userName);
 // list for added projects
 const projectListContainer = document.createElement("ul");
 projectListContainer.id = "projectListContainer";
-document.body.appendChild(projectListContainer);
 
-// form coontiner for projects
+// form container for projects
 const projectFormContainer = document.createElement("div");
 projectFormContainer.id = "projectFormContainer";
 projectFormContainer.innerHTML = `<h2>All Projects</h2>`;
@@ -68,7 +67,7 @@ newItems.appendChild(addTask);
 
 sidebar.appendChild(userDetails);
 sidebar.appendChild(projectFormContainer);
-
+sidebar.appendChild(projectListContainer);
 sidebar.appendChild(newItems);
 
 document.body.appendChild(sidebar);
