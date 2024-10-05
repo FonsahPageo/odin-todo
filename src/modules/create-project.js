@@ -17,6 +17,7 @@ export const CreateProjectForm = () => {
 
         if(projectTitle) {
             addProjectToList(projectTitle);
+            document.getElementById("projectFormContainer").innerHTML = "";
             projectForm.reset();
         }
     });

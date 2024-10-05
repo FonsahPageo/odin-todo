@@ -38,6 +38,7 @@ export const CreateTaskForm = () => {
 
         if (taskTitle && taskDescription && taskDueDate){
             addTaskToList(taskTitle, taskDescription, taskDueDate, taskPriority, taskProject);
+            document.getElementById("taskFormContainer").innerHTML = "";
             taskForm.reset();
         }
     });
