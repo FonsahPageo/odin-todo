@@ -26,13 +26,18 @@ userName.innerHTML = "AshPrince";
 userDetails.appendChild(userLogo);
 userDetails.appendChild(userName);
 
+// list for added projects
+const projectListContainer = document.createElement("ul");
+projectListContainer.id = "projectListContainer";
+document.body.appendChild(projectListContainer);
+
+// form coontiner for projects
 const projectFormContainer = document.createElement("div");
 projectFormContainer.id = "projectFormContainer";
 projectFormContainer.innerHTML = `<h2>All Projects</h2>`;
+document.body.appendChild(projectFormContainer);
 
-// const projectList = document.createElement("ul");
-// projectList.id = "all-projects";
-
+// add project button logic
 const addProject = document.createElement("button");
 addProject.innerHTML = `Add Project <i class="fa-solid fa-plus"></i>`;
 addProject.addEventListener("click", () => {
@@ -41,13 +46,12 @@ addProject.addEventListener("click", () => {
     projectFormContainer.appendChild(projectForm);
 });
 
-document.body.appendChild(projectFormContainer);
-
+// form container for tasks
 const taskFormContainer = document.createElement("div");
 taskFormContainer.id = "taskFormContainer";
-
 document.body.appendChild(taskFormContainer);
 
+// add task button logic
 const addTask = document.createElement("button");
 addTask.innerHTML = `Add Task <i class="fa-solid fa-plus"></i>`;
 addTask.addEventListener("click", () => {
@@ -56,11 +60,16 @@ addTask.addEventListener("click", () => {
     taskFormContainer.appendChild(taskForm);
 });
 
-projectFormContainer.appendChild(addProject);
-projectFormContainer.appendChild(addTask);
+// div for the add project and add task buttons
+const newItems = document.createElement("div");
+newItems.className = "new-items";
+newItems.appendChild(addProject);
+newItems.appendChild(addTask);
 
 sidebar.appendChild(userDetails);
 sidebar.appendChild(projectFormContainer);
+
+sidebar.appendChild(newItems);
 
 document.body.appendChild(sidebar);
 
@@ -79,9 +88,3 @@ taskList.innerHTML = `
 
 main.appendChild(taskList);
 document.body.appendChild(main);
-
-// const todoFooter = document.createElement("footer");
-// const footerMessage = document.createElement("p");
-// footerMessage.innerHTML = "Created by Fonsah Pageo. Copyrights &copy; 2024";
-// todoFooter.appendChild(footerMessage);
-// document.body.appendChild(todoFooter);
