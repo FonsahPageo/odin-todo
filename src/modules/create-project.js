@@ -1,32 +1,30 @@
-export const CreateProjectForm = () => {
+export function CreateProjectForm (addProjectCallback) {
     const projectForm = document.createElement("form");
-    projectForm.id = "create-project-form";
-    projectForm.innerHTML = `
-        <label for="projectTitle">Project Title:</label>
-        <input type="text" id="projectTitle" name"projectTitle" required><br>
 
-        <label for="projectDescription">Description:</label>
-        <textarea id="projecDescription" required></textarea><br>
+    const projectTitle =  document.createElement("input");
+    projectTitle.type = "text";
+    projectTitle.name = "projectTitle";
+    projectTitle.placeholder = "Project Title";
+    projectTitle.required = true;
 
-        <button type = "submit">Add Project</button>
-    `;
+    const projectDescription =  document.createElement("textarea");
+    projectDescription.placeholder = "Describe the project";
+    projectDescription.name = "projecTDescription";
+
+    const submitBtn = document.createElement("button");
+    submitBtn.type = "submit";
+    submitBtn.innerHTML = `Add Project <i class="fa-solid fa-plus">`;
+
+    projectForm.append(projectTitle, projectDescription, submitBtn);
 
     projectForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        const projectTitle = document.getElementById("projectTitle").value;
+        const projectName = projectTitle.value;
+        addProjectCallback(projectName);
 
-        if(projectTitle) {
-            addProjectToList(projectTitle);
-            document.getElementById("projectFormContainer").innerHTML = "";
-            projectForm.reset();
-        }
+        projectForm.reset();
+        projectForm.innerHTML = '';
     });
     
     return projectForm;
-};
-
-const addProjectToList = (title) => {
-    const newProject = document.createElement("li");
-    newProject.innerHTML = `<a href="#">${title}</a> <i class="fa-solid fa-delete-left"</i>`;
-    projectListContainer.appendChild(newProject);
 };

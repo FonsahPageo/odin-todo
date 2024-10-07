@@ -3,12 +3,12 @@ import odinLogo from "./static/images/me.jpg";
 import { CreateProjectForm } from "./modules/create-project";
 import { CreateTaskForm } from "./modules/create-task";
 
-// header
+let projects = [];
+
 const todoHeader = document.createElement("header");
 todoHeader.innerHTML = "My To-do List";
 document.body.prepend(todoHeader);
 
-// sidebar
 const sidebar = document.createElement("div");
 sidebar.id = "sidebar";
 
@@ -40,7 +40,7 @@ document.body.appendChild(projectFormContainer);
 const addProject = document.createElement("button");
 addProject.innerHTML = `Add Project <i class="fa-solid fa-plus"></i>`;
 addProject.addEventListener("click", () => {
-    const projectForm = CreateProjectForm();
+    const projectForm = CreateProjectForm(addProjectToList); 
     projectFormContainer.innerHTML = "";
     projectFormContainer.appendChild(projectForm);
 });
@@ -54,7 +54,7 @@ document.body.appendChild(taskFormContainer);
 const addTask = document.createElement("button");
 addTask.innerHTML = `Add Task <i class="fa-solid fa-plus"></i>`;
 addTask.addEventListener("click", () => {
-    const taskForm = CreateTaskForm();
+    const taskForm = CreateTaskForm(populateProjectDropdown, addTaskToList);
     taskFormContainer.innerHTML = "";
     taskFormContainer.appendChild(taskForm);
 });
@@ -87,3 +87,85 @@ taskList.innerHTML = `
 
 main.appendChild(taskList);
 document.body.appendChild(main);
+
+function addProjectToList(projectName) {
+    const projectItem = document.createElement("div");
+    projectItem.className = "project-item";
+    projectItem.innerHTML = `
+        <h3>${projectName}</h3>
+        <button class="delete-project">Delete <i class = "fa-solid fa-delete-left"></i></button>
+    `;
+    projectListContainer.appendChild(projectItem);
+
+    projectItem.querySelector(".delete-project").addEventListener("click", () => {
+        projectListContainer.removeChild(projectItem);
+        projects = projects.filter(project => project !== projectName);
+    });
+
+    projects.push(projectName);
+}
+
+function addTaskToList(taskData) {
+    const { title, description, dueDate, priority, project, status } = taskData;
+
+    const taskRow = document.createElement("tr");
+    taskRow.innerHTML = `
+        <td>${title}</td>
+        <td>${description}</td>
+        <td>${dueDate}</td>
+        <td>${priority}</td>
+        <td>${project}</td>
+        <td>${status}</td>
+        <td>
+            <button class="edit-task">Edit</button> 
+            <button class="delete-task">Delete <i class = "fa-solid fa-delete-left"></i></button>
+        </td>
+    `;
+
+    taskList.querySelector("tbody").appendChild(taskRow);
+
+    const deleteButton = taskRow.querySelector(".delete-task");
+    deleteButton.addEventListener("click", () => {
+        taskRow.querySelector("tbody").removeChild(taskRow);
+    });
+
+    const editButton = taskRow.querySelector(".edit-task");
+    editButton.addEventListener("click", () => {
+        const form = CreateTaskForm(populateProjectDropdown, addTaskToList); 
+        form.querySelector("input[name='taskTitle']").value = title;
+        form.querySelector("textarea[name='taskDescription']").value = description;
+        form.querySelector("input[name='taskDueDate']").value = dueDate;
+        form.querySelector("select[name='taskPriority']").value = priority;
+        form.querySelector("select[name='project']").value = project;
+        form.querySelector("select[name='status']").value = status;
+
+        taskFormContainer.innerHTML = ""; 
+        taskFormContainer.appendChild(form); 
+    });
+
+    taskRow.querySelector(".edit-task").addEventListener("click", () => {
+        const form = CreateTaskForm();
+        populateProjectDropdown(form.querySelector("select[name='project']"));
+        
+        form.querySelector("input[name='taskTitle']").value = title;
+        form.querySelector("textarea[name='taskDescription']").value = description;
+        form.querySelector("input[name='taskDueDate']").value = dueDate;
+        form.querySelector("select[name='taskPriority']").value = priority;
+        form.querySelector("select[name='project']").value = project;
+        form.querySelector("select[name='status']").value = status;
+
+        taskFormContainer.innerHTML = "";
+        taskFormContainer.appendChild(form);
+    });
+}
+
+function populateProjectDropdown(selectElement) {
+    selectElement.innerHTML = '';
+
+    projects.forEach((project) => {
+        const option = document.createElement('option');
+        option.value = project;
+        option.textContent = project;
+        selectElement.appendChild(option);
+    });
+}
