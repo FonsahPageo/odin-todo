@@ -33,12 +33,13 @@ projectListContainer.id = "projectListContainer";
 // form container for projects
 const projectFormContainer = document.createElement("div");
 projectFormContainer.id = "projectFormContainer";
-projectFormContainer.innerHTML = `<h2>All Projects</h2>`;
+const myProjects = document.createElement("h2");
+projectFormContainer.innerHTML = `<h2>My Projects</h2>`;
 document.body.appendChild(projectFormContainer);
 
 // add project button logic
 const addProject = document.createElement("button");
-addProject.innerHTML = `Add Project <i class="fa-solid fa-plus"></i>`;
+addProject.innerHTML = `New Project <i class="fa-solid fa-plus"></i>`;
 addProject.addEventListener("click", () => {
     const projectForm = CreateProjectForm(addProjectToList); 
     projectFormContainer.innerHTML = "";
@@ -52,7 +53,7 @@ document.body.appendChild(taskFormContainer);
 
 // add task button logic
 const addTask = document.createElement("button");
-addTask.innerHTML = `Add Task <i class="fa-solid fa-plus"></i>`;
+addTask.innerHTML = `New Task <i class="fa-solid fa-plus"></i>`;
 addTask.addEventListener("click", () => {
     const taskForm = CreateTaskForm(populateProjectDropdown, addTaskToList);
     taskFormContainer.innerHTML = "";
@@ -88,12 +89,14 @@ taskList.innerHTML = `
 main.appendChild(taskList);
 document.body.appendChild(main);
 
+// populate project list with projects
+
 function addProjectToList(projectName) {
     const projectItem = document.createElement("div");
     projectItem.className = "project-item";
     projectItem.innerHTML = `
         <h3>${projectName}</h3>
-        <button class="delete-project">Delete <i class = "fa-solid fa-delete-left"></i></button>
+        <button class="delete-project"><i class = "fa-solid fa-trash-can"></i></button>
     `;
     projectListContainer.appendChild(projectItem);
 
@@ -104,6 +107,8 @@ function addProjectToList(projectName) {
 
     projects.push(projectName);
 }
+
+// populate tasks table with tasks
 
 function addTaskToList(taskData) {
     const { title, description, dueDate, priority, project, status } = taskData;
@@ -117,46 +122,32 @@ function addTaskToList(taskData) {
         <td>${project}</td>
         <td>${status}</td>
         <td>
-            <button class="edit-task">Edit</button> 
-            <button class="delete-task">Delete <i class = "fa-solid fa-delete-left"></i></button>
+            <button class="delete-task"><i class="fa-solid fa-trash-can"></i></button>
         </td>
     `;
 
     taskList.querySelector("tbody").appendChild(taskRow);
 
+    // delete task
     const deleteButton = taskRow.querySelector(".delete-task");
     deleteButton.addEventListener("click", () => {
-        taskRow.querySelector("tbody").removeChild(taskRow);
+        taskRow.parentNode.removeChild(taskRow);
     });
 
-    const editButton = taskRow.querySelector(".edit-task");
-    editButton.addEventListener("click", () => {
-        const form = CreateTaskForm(populateProjectDropdown, addTaskToList); 
-        form.querySelector("input[name='taskTitle']").value = title;
-        form.querySelector("textarea[name='taskDescription']").value = description;
-        form.querySelector("input[name='taskDueDate']").value = dueDate;
-        form.querySelector("select[name='taskPriority']").value = priority;
-        form.querySelector("select[name='project']").value = project;
-        form.querySelector("select[name='status']").value = status;
+    // edit task
+    // const editButton = taskRow.querySelector(".edit-task");
+    // editButton.addEventListener("click", () => {
+    //     const form = CreateTaskForm(populateProjectDropdown, addTaskToList); 
+    //     form.querySelector("input[name='taskTitle']").value = title;
+    //     form.querySelector("textarea[name='taskDescription']").value = description;
+    //     form.querySelector("input[name='taskDueDate']").value = dueDate;
+    //     form.querySelector("select[name='taskPriority']").value = priority;
+    //     form.querySelector("select[name='project']").value = project;
+    //     form.querySelector("select[name='status']").value = status;
 
-        taskFormContainer.innerHTML = ""; 
-        taskFormContainer.appendChild(form); 
-    });
-
-    taskRow.querySelector(".edit-task").addEventListener("click", () => {
-        const form = CreateTaskForm();
-        populateProjectDropdown(form.querySelector("select[name='project']"));
-        
-        form.querySelector("input[name='taskTitle']").value = title;
-        form.querySelector("textarea[name='taskDescription']").value = description;
-        form.querySelector("input[name='taskDueDate']").value = dueDate;
-        form.querySelector("select[name='taskPriority']").value = priority;
-        form.querySelector("select[name='project']").value = project;
-        form.querySelector("select[name='status']").value = status;
-
-        taskFormContainer.innerHTML = "";
-        taskFormContainer.appendChild(form);
-    });
+    //     taskFormContainer.innerHTML = ""; 
+    //     taskFormContainer.appendChild(form); 
+    // });
 }
 
 function populateProjectDropdown(selectElement) {

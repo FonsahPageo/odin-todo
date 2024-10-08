@@ -1,5 +1,6 @@
 export function CreateProjectForm (addProjectCallback) {
     const projectForm = document.createElement("form");
+    projectForm.id = "create-project-form";
 
     const projectTitle =  document.createElement("input");
     projectTitle.type = "text";
@@ -9,7 +10,7 @@ export function CreateProjectForm (addProjectCallback) {
 
     const projectDescription =  document.createElement("textarea");
     projectDescription.placeholder = "Describe the project";
-    projectDescription.name = "projecTDescription";
+    projectDescription.name = "projectDescription";
 
     const submitBtn = document.createElement("button");
     submitBtn.type = "submit";

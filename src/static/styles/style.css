@@ -2,7 +2,7 @@ body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-h2{
+h2, h3{
     color: cadetblue;
 }
 
@@ -10,7 +10,6 @@ header{
     justify-content: center;
     display: flex;
     font-size: 2em;
-    font-weight: bold;
     background-color: dodgerblue;
     color: wheat;
     height: 2em;
@@ -19,8 +18,9 @@ header{
 
 #sidebar{
     background-color: lavender;
-    max-width: 300px;
-    height: 80vh;
+    width: 200px;
+    max-width: 400px;
+    height: 100vh;
     padding: 1em;
     float: left;
 }
@@ -38,13 +38,13 @@ header{
 }
 
 #taskList{
-    width: 80%;
-    padding: 10px;
+    width: 50vw;
+    padding: 4px;
     text-align: center;
 }
 
 td, th {
-    padding: 8px;
+    padding: 4px;
     border: 1px solid black;
 }
 
@@ -65,13 +65,17 @@ button{
     color: #f4f4f4;
     border: none;
     max-width: 200px;
+    margin: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 #create-project-form, #create-task-form {
     display: flex;
     flex-direction: column;
-    /* gap: 2px; */
-    padding: 6px;
+    gap: 5px;
+    padding: 4px;
 }
 
 label{
@@ -80,13 +84,16 @@ label{
 }
 
 input, select, textarea {
-    padding: 8px;
+    max-width: 200px;
+    padding: 12px;
     border: 1px solid #ccc;
+    border-radius: 10px;
 }
 
 #projectListContainer{
     padding: 5px;
     display: flex;
+    gap: 10px;
     flex-direction: column;
 }
 
@@ -103,6 +110,23 @@ ul li a {
     text-decoration: none;
 }
 
-/* .fa-solid{
-    color: #f2f2f2;
-} */
+.project-item{
+    display: flex;
+    background: #f2f2f2;
+    padding: 8px;
+    justify-content: space-between;
+}
+
+.fa-solid{
+    font-size: 22px;
+}
+
+.delete-project, .addProject{
+    background: none;
+    color: #5aafd3;
+}
+
+.projectDiv{
+    display: flex;
+    justify-content: space-evenly;
+}
